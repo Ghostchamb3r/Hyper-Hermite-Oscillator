@@ -44,13 +44,15 @@ static MYFLT computeTanhHermite(MYFLT x) {
     MYFLT normIndex = ((x - TANH_MIN) / (TANH_MAX - TANH_MIN)) * (TANH_TABLE_SIZE - 1); //2.98485588666341e-4
     int index = (int)normIndex; // 2
     MYFLT frac = normIndex - index; // .98485588666341e-4
-
+// function values f0, f1
     MYFLT f0 = tanhTable[index];
     MYFLT f1 = tanhTable[index + 1];
+// derivative values d0, d1
     MYFLT d0 = tanhDerivTable[index];
     MYFLT d1 = tanhDerivTable[index + 1];
 
     // Cubic Hermite interpolation formula
+    // basis functions
     MYFLT h00 = (1 + 2 * frac) * (1 - frac) * (1 - frac);  // 1.96971177332682e-4 * 0.9999015144113337 * 0.9999015144113337
     MYFLT h10 = frac * (1 - frac) * (1 - frac);
     MYFLT h01 = frac * frac * (3 - 2 * frac);
